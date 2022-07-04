@@ -16,24 +16,30 @@
 const randomNumbersElement = document.getElementById('random-numbers');
 
 // funzioni
-let randomNumbers;
-
 function getRandomNumbers() {
 
-    for (let i = 0; i < 5; i++) {
-        randomNumbers = Math.floor(Math.random() * 100) + 1;
+    const randomNumbers = [];
 
-        const number = document.createElement('div');
-        number.className = 'number';
-        number.innerText = randomNumbers;
+    while (randomNumbers.length < 5) {
+        let randomNumber;
+        let number;
+        do {
+            randomNumber = Math.floor(Math.random() * 100) + 1;
+            number = document.createElement('div');
+            number.className = 'number';
+            number.innerText = randomNumber;
+        } while (randomNumbers.includes(randomNumber));
 
         randomNumbersElement.append(number);
+
+        randomNumbers.push(randomNumber);
 
         setTimeout(() => {
             number.style.display = 'none';
         }, 5000)
     }
 
+    console.log(randomNumbers);
     return randomNumbers;
 }
 
@@ -61,7 +67,7 @@ let seconds = 5
 
 countdownElement.innerText = seconds;
 
-setInterval(function (countdown) {
+const countdown = setInterval(function () {
     countdownElement.innerText = --seconds;
 
     if (seconds === 0) {
@@ -70,6 +76,13 @@ setInterval(function (countdown) {
     }
 }, 1000);
 
+//
+function isValidNumber() {
+
+    let isValid = true;
+
+    if ()
+}
 
 // svolgimento
 getRandomNumbers();
