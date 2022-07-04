@@ -13,38 +13,64 @@
 
 
 
-
-// recupero elementi
-
-const countdownElement = document.getElementById('countdown');
 const randomNumbersElement = document.getElementById('random-numbers');
 
-
 // funzioni
-function getRandomNumbers() {
-    let randomNumber;
+let randomNumbers;
 
-    for (i = 0; i < 5; i++) {
-        randomNumber = Math.floor(Math.random() * 100) + 1;
+function getRandomNumbers() {
+
+    for (let i = 0; i < 5; i++) {
+        randomNumbers = Math.floor(Math.random() * 100) + 1;
 
         const number = document.createElement('div');
         number.className = 'number';
-        number.innerText = randomNumber;
+        number.innerText = randomNumbers;
 
         randomNumbersElement.append(number);
 
         setTimeout(() => {
             number.style.display = 'none';
-        }, 30000)
+        }, 5000)
     }
 
-    return randomNumber;
+    return randomNumbers;
 }
 
 //
-getRandomNumbers();
+const userNumbersArray = [];
 
-function createCountdown() {
+setTimeout(function getUserNumbers() {
+    let userNumbers;
 
+    for (let i = 0; i < 5; i++) {
+        userNumbers = parseInt(prompt('Scegli il numero da 1 a 100'));
+        userNumbersArray.push(userNumbers);
+    }
+
+    console.log(userNumbersArray);
+
+    return userNumbers;
 }
+    , 5500);
+
+//
+const countdownElement = document.getElementById('countdown');
+
+let seconds = 5
+
+countdownElement.innerText = seconds;
+
+setInterval(function (countdown) {
+    countdownElement.innerText = --seconds;
+
+    if (seconds === 0) {
+        countdownElement.innerText = '';
+        clearInterval(countdown);
+    }
+}, 1000);
+
+
+// svolgimento
+getRandomNumbers();
 
