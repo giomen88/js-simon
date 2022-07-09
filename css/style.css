@@ -23,9 +23,18 @@ body {
     margin-bottom: 100px;
 }
 
+#countdown-message {
+    font-size: 2rem;
+    margin-bottom: 40px;
+}
+
 #random-numbers {
     width: 100%;
     font-size: 5rem;
     display: flex;
     justify-content: space-between;
+}
+
+#scores-message {
+    font-size: 3rem;
 }

@@ -14,17 +14,20 @@
 
 
 const randomNumbersElement = document.getElementById('random-numbers');
+let min = 1;
+let max = 99;
+let totalNumbers = 5;
 
 // funzioni
+const randomNumbers = [];
+
 function getRandomNumbers() {
 
-    const randomNumbers = [];
-
-    while (randomNumbers.length < 5) {
+    while (randomNumbers.length < totalNumbers) {
         let randomNumber;
         let number;
         do {
-            randomNumber = Math.floor(Math.random() * 100) + 1;
+            randomNumber = Math.floor(Math.random() * max) + min;
             number = document.createElement('div');
             number.className = 'number';
             number.innerText = randomNumber;
@@ -44,24 +47,29 @@ function getRandomNumbers() {
 }
 
 //
-const userNumbersArray = [];
+const getUserNumber = (min, max) => {
+    let userNumber;
 
-setTimeout(function getUserNumbers() {
-    let userNumbers;
+    while (isNaN(userNumber) || userNumber < min || userNumber > max) {
+        userNumber = parseInt(prompt(`Scegli il numero da ${min} a ${max}`));
 
-    for (let i = 0; i < 5; i++) {
-        userNumbers = parseInt(prompt('Scegli il numero da 1 a 100'));
-        userNumbersArray.push(userNumbers);
-    }
-
-    console.log(userNumbersArray);
-
-    return userNumbers;
+        if (isNaN(userNumber) || userNumber < min || userNumber > max) {
+            alert('Attenzione! Il numero inserito non è corretto');
+        };
+    };
+    return userNumber;
 }
-    , 5500);
 
-//
+
+
+//////////////////////////////////////////// SVOLGIMENTO
+
+// invoco la funzione per i numeri casuali
+getRandomNumbers();
+
+// avvio il countdown
 const countdownElement = document.getElementById('countdown');
+const countdownMessageElement = document.getElementById('countdown-message');
 
 let seconds = 5
 
@@ -71,19 +79,31 @@ const countdown = setInterval(function () {
     countdownElement.innerText = --seconds;
 
     if (seconds === 0) {
-        countdownElement.innerText = '';
+        countdownMessageElement.innerText = '';
         clearInterval(countdown);
     }
 }, 1000);
 
-//
-function isValidNumber() {
+// avvio i prompt per l'utente e calcolo i punti
+setTimeout(() => {
+    const userNumberArray = [];
+    const scoresMessage = document.getElementById('scores-message');
 
-    let isValid = true;
+    while (userNumberArray.length < totalNumbers) {
 
-    if ()
+        const userNumber = getUserNumber(min, max);
+
+        if (!userNumberArray.includes(userNumber)) userNumberArray.push(userNumber);
+    }
+
+    let correctAnswers = [];
+
+    for (let i = 0; i < totalNumbers; i++) {
+        if (randomNumbers.includes(userNumberArray[i])) correctAnswers.push(userNumberArray[i]);
+    }
+
+    scoresMessage.innerHTML = `<strong>${correctAnswers.length}</strong> PUNTI - Hai indovinato <strong>${correctAnswers.join('  ')}</strong>`;
+
+    console.log(userNumberArray);
 }
-
-// svolgimento
-getRandomNumbers();
-
+    , 5500);
